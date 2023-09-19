@@ -5,6 +5,7 @@
       - net-snmp-libs
       - net-snmp-utils
       - net-snmp-agent-libs
+      - net-snmp
     state: latest
 
 - name: Set snmpd.conf
