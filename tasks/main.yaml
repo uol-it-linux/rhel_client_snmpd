@@ -11,10 +11,10 @@
   ansible.builtin.copy:
     src: snmpd.conf
     dest: /etc/snmp/snmpd.conf
-
-- name: Check if NVIDIA GPU is present
+  
+- name: Check for NVIDIA GPU
   ansible.builtin.command: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
-    ignore_errors: yes
+    ignore_errors: true
     register: gpu_output
 
 - name: Download NVIDIA GPU monitoring script
