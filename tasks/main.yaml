@@ -13,7 +13,7 @@
     dest: /etc/snmp/snmpd.conf
   
 - name: Check for NVIDIA GPU
-  ansible.builtin.command: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
+  ansible.builtin.shell: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
   ignore_errors: true
   register: gpu_output
 
