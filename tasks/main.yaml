@@ -18,9 +18,9 @@
   ignore_errors: true
   register: gpu_output
 
-- name: Download NVIDIA GPU monitoring script
-  ansible.builtin.get_url:
-    url: https://github.com/librenms/librenms-agent/raw/master/snmp/nvidia
+- name: Add Nvidia monitoring script
+  ansible.builtin.copy:
+    src: nvidia
     dest: /etc/snmp/nvidia
     when: "'NVIDIA' in gpu_output.stdout"
 
