@@ -12,4 +12,24 @@
     src: snmpd.conf
     dest: /etc/snmp/snmpd.conf
 
-- name: add gpu monitoring if card present
+- name: Check if NVIDIA GPU is present
+  ansible.builtin.command: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
+    ignore_errors: yes
+    register: gpu_output
+
+- name: Download NVIDIA GPU monitoring script
+  ansible.builtin.get_url:
+    url: https://github.com/librenms/librenms-agent/raw/master/snmp/nvidia
+    dest: /etc/snmp/nvidia
+    when: "'NVIDIA' in gpu_output.stdout"
+
+- name: Make the script executable
+  ansible.builtin.file:
+    path: /etc/snmp/nvidia
+    mode: '0755'
+    when: "'NVIDIA' in gpu_output.stdout"
+
+- name: Restart SNMP daemon
+  ansible.builtin.service:
+    name: snmpd
+    state: restarted
