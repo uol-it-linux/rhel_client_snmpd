@@ -34,7 +34,7 @@
   ansible.builtin.file:
     path: /etc/snmp/nvidia
     mode: '0755'
-    when: "'NVIDIA' in gpu_output.stdout"
+  when: "'NVIDIA' in gpu_output.stdout"
 
 - name: Restart SNMP daemon
   ansible.builtin.service:
