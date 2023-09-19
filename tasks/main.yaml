@@ -1,0 +1,15 @@
+---
+- name: Install snmpd
+  ansible.builtin.dnf:
+    name: 
+      - net-snmp-libs
+      - net-snmp-utils
+      - net-snmp-agent-libs
+    state: latest
+
+- name: Set snmpd.conf
+  ansible.builtin.copy:
+    src: snmpd.conf
+    dest: /etc/snmp/snmpd.conf
+
+- name: add gpu monitoring if card present
