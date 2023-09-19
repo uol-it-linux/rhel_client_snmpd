@@ -14,8 +14,8 @@
   
 - name: Check for NVIDIA GPU
   ansible.builtin.command: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
-    ignore_errors: true
-    register: gpu_output
+  ignore_errors: true
+  register: gpu_output
 
 - name: Download NVIDIA GPU monitoring script
   ansible.builtin.get_url:
