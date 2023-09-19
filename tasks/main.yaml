@@ -18,7 +18,7 @@
     name: snmpd
     enabled: yes
     state: started
-     
+
 - name: Check for NVIDIA GPU
   ansible.builtin.shell: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
   ignore_errors: true
@@ -28,7 +28,7 @@
   ansible.builtin.copy:
     src: nvidia_script
     dest: /etc/snmp/nvidia
-    when: "'NVIDIA' in gpu_output.stdout"
+  when: "'NVIDIA' in gpu_output.stdout"
 
 - name: Make the script executable
   ansible.builtin.file:
