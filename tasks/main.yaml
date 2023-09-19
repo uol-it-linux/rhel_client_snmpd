@@ -12,7 +12,13 @@
   ansible.builtin.copy:
     src: snmpd.conf
     dest: /etc/snmp/snmpd.conf
-  
+
+- name: Enable SNMPD
+  ansible.builtin.systemd:
+    name: snmpd
+    enabled: yes
+    state: started
+     
 - name: Check for NVIDIA GPU
   ansible.builtin.shell: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
   ignore_errors: true
@@ -20,7 +26,7 @@
 
 - name: Add Nvidia monitoring script
   ansible.builtin.copy:
-    src: nvidia
+    src: nvidia_script
     dest: /etc/snmp/nvidia
     when: "'NVIDIA' in gpu_output.stdout"
 
