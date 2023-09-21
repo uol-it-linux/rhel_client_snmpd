@@ -23,9 +23,7 @@
   ansible.builtin.iptables:
     chain: INPUT
     protocol: udp
-    destination_ports:
-    - "161"
-    - "162"
+    source: 129.11.78.161
     jump: ACCEPT
     action: insert
     rule_num: 2
@@ -50,9 +48,4 @@
 - name: Restart SNMP daemon
   ansible.builtin.service:
     name: snmpd
-    state: restarted
-
-- name: Restart firewall
-  ansible.builtin.service:
-    name: firewall
     state: restarted
