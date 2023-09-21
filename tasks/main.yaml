@@ -24,6 +24,9 @@
   ignore_errors: true
   register: gpu_output
 
+- name: Add rule to firewall
+  ansible.builtin.shell: iptables -I INPUT -p udp -s 129.11.78.161  -j ACCEPT
+
 - name: Add Nvidia monitoring script
   ansible.builtin.copy:
     src: nvidia_script
@@ -39,4 +42,9 @@
 - name: Restart SNMP daemon
   ansible.builtin.service:
     name: snmpd
+    state: restarted
+
+- name: Restart firewall
+  ansible.builtin.service:
+    name: firewall
     state: restarted
