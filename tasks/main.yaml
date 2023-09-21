@@ -19,13 +19,21 @@
     enabled: yes
     state: started
 
+- name: Enable udp ports 161 and 162
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: udp
+    destination_ports:
+    - "161"
+    - "162"
+    jump: ACCEPT
+    action: insert
+    rule_num: 2
+
 - name: Check for NVIDIA GPU
   ansible.builtin.shell: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
   ignore_errors: true
   register: gpu_output
-
-- name: Add rule to firewall
-  ansible.builtin.shell: iptables -I INPUT -p udp -s 129.11.78.161  -j ACCEPT
 
 - name: Add Nvidia monitoring script
   ansible.builtin.copy:
