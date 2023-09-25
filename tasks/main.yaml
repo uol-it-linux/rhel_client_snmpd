@@ -31,7 +31,7 @@
     source: 129.11.78.161
     jump: ACCEPT
     action: insert
-    rule_num: 2
+    rule_num: '1'
 
 - name: Check for NVIDIA GPU
   ansible.builtin.shell: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
