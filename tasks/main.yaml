@@ -19,10 +19,16 @@
     enabled: yes
     state: started
 
+- name: check if firewalld is present
+  ansible.builtin.systemd:
+    name: firewalld
+  register: firewalld_service
+
 - name: Ensure firewalld is stopped
   ansible.builtin.service:
     name: firewalld
     state: stopped
+  when: firewalld_service.status == 'running'
   
 - name: Enable udp ports 161 and 162
   ansible.builtin.iptables:
