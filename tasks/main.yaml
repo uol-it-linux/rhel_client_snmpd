@@ -19,6 +19,11 @@
     enabled: yes
     state: started
 
+- name: Restart iptables
+  ansible.builtin.service:
+    name: firewall
+    state: restarted
+  
 - name: Enable udp ports 161 and 162
   ansible.builtin.iptables:
     chain: INPUT
