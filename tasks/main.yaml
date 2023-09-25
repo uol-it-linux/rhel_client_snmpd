@@ -19,10 +19,10 @@
     enabled: yes
     state: started
 
-- name: Restart iptables
+- name: Ensure firewalld is stopped
   ansible.builtin.service:
-    name: firewall
-    state: restarted
+    name: firewalld
+    state: stopped
   
 - name: Enable udp ports 161 and 162
   ansible.builtin.iptables:
