@@ -38,6 +38,10 @@
   ignore_errors: true
   register: gpu_output
 
+- name: Debug GPU Output
+  ansible.builtin.debug:
+    var: gpu_output
+
 - name: Add Nvidia monitoring script
   ansible.builtin.copy:
     src: nvidia_script
