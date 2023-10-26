@@ -34,14 +34,12 @@
     rule_num: '1'
 
 - name: Check for NVIDIA GPU
-  ansible.builtin.shell: /usr/sbin/lspci | grep -i 'VGA' | grep -i 'NVIDIA'
-  register: gpu_pci_output
-  changed_when: false
-
-- name: Check for NVIDIA GPU
-  ansible.builtin.shell: nvidia-smi --query-gpu=name --format=csv,noheader,nounits
-  ignore_errors: true
+  ansible.builtin.shell: >
+    /usr/sbin/lspci | grep -i 'VGA' | grep -i 'NVIDIA' &&
+    nvidia-smi --query-gpu=name --format=csv,noheader,nounits
   register: gpu_output
+  changed_when: false
+  failed_when: false
 
 - name: Debug GPU Output
   ansible.builtin.debug:
