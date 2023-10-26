@@ -49,13 +49,13 @@
   ansible.builtin.copy:
     src: nvidia_script
     dest: /etc/snmp/nvidia
-  when: "'NVIDIA' in gpu_pci_output.stdout and gpu_output.rc == 0"
+  when: "'NVIDIA' in gpu_output.stdout and gpu_output.rc == 0"
 
 - name: Make the script executable
   ansible.builtin.file:
     path: /etc/snmp/nvidia
     mode: '0755'
-  when: "'NVIDIA' in gpu_pci_output.stdout and gpu_output.rc == 0"
+  when: "'NVIDIA' in gpu_output.stdout and gpu_output.rc == 0"
 
 - name: Restart SNMP daemon
   ansible.builtin.service:
