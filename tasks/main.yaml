@@ -34,7 +34,7 @@
     rule_num: '1'
 
 - name: Check for NVIDIA GPU
-  ansible.builtin.shell: lspci | grep -i 'VGA' | grep -i 'NVIDIA'
+  ansible.builtin.shell: /usr/sbin/lspci | grep -i 'VGA' | grep -i 'NVIDIA'
   register: gpu_pci_output
   changed_when: false
 
