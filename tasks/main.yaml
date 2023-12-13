@@ -14,6 +14,13 @@
     dest: /etc/snmp/snmpd.conf
     mode: '0644'
 
+- template:
+    src: snmpd.j2
+    dest: /etc/snmp/snmpd.conf
+    mode: '0644'
+    owner: root
+    group: root
+
 - name: Enable SNMPD
   ansible.builtin.systemd:
     name: snmpd
