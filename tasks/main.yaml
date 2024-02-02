@@ -43,7 +43,7 @@
 
 - name: Check for NVIDIA GPU
   ansible.builtin.shell: >
-    /usr/sbin/lspci | grep -i 'VGA' | grep -i 'NVIDIA' &&
+    /usr/sbin/lspci | grep -i 'NVIDIA' &&
     nvidia-smi --query-gpu=name --format=csv,noheader,nounits
   register: gpu_output
   changed_when: false
