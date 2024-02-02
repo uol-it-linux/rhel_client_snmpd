@@ -65,6 +65,12 @@
     mode: '0755'
   when: "'NVIDIA' in gpu_output.stdout and gpu_output.rc == 0"
 
+- name: Remove Nvidia monitoring script
+  ansible.builtin.file:
+    path: /etc/snmp/nvidia
+    state: absent
+  when: "'NVIDIA' not in gpu_output.stdout or gpu_output.rc != 0"
+
 - name: Restart SNMP daemon
   ansible.builtin.service:
     name: snmpd
