@@ -65,6 +65,16 @@
     mode: '0755'
   when: "'NVIDIA' in gpu_output.stdout and gpu_output.rc == 0"
 
+- name: Generate local policy module for nvidia-smi
+  ansible.builtin.command:
+      cmd: "ausearch -c 'nvidia-smi' --raw | audit2allow -M my-nvidiasmi"
+  when: "'NVIDIA' in gpu_output.stdout and gpu_output.rc == 0"
+
+- name: Apply the local policy module
+  ansible.builtin.command:
+      cmd: "semodule -X 300 -i my-nvidiasmi.pp"
+  when: "'NVIDIA' in gpu_output.stdout and gpu_output.rc == 0"
+
 - name: Remove Nvidia monitoring script
   ansible.builtin.file:
     path: /etc/snmp/nvidia
